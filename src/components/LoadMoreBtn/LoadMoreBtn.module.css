@@ -1,0 +1,8 @@
+.loudButton {
+  color: aliceblue;
+  margin-left: 672px;
+}
+
+.loudButton:hover {
+  background-color: #1d28ffa8;
+}

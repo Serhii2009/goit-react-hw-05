@@ -1,0 +1,41 @@
+.headerForm {
+  display: flex;
+  align-items: center;
+  margin-left: 532px;
+  margin-bottom: 10px;
+}
+
+.headerForm label {
+  width: 100px;
+  font-weight: bold;
+}
+
+.headerForm input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  height: 38px;
+}
+
+.headerForm span {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.headerForm button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.userButton {
+  margin-top: 4px;
+  margin-left: 80px;
+  color: #fff;
+}
