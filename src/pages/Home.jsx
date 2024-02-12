@@ -1,40 +1,37 @@
+import { MoviList } from "../components/MoviList/MoviList";
+import { getTrends } from "../api";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { trendingMovie } from "../api";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchMovies = async () => {
+    const fetchTrendMovies = async () => {
       try {
-        const data = await trendingMovie({ abortController });
-        setMovies(data.results);
+        setLoading(true);
+        const response = await getTrends();
+        setMovies(response.data.results);
       } catch (error) {
-        if (error.code !== "ERR_CANCELED") {
-          setError(true);
-        }
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchMovies();
-
-    return () => abortController.abort();
+    fetchTrendMovies();
   }, []);
 
   return (
-    <ul>
-      {error && <p>OOOOPS! ERROR!</p>}
-      {movies.map((movie) => (
-        <li key={movie.id}>
-          <NavLink to={`/movie/${movie.id}`}>{movie.title}</NavLink>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h2>Trending today</h2>
+      {error && (
+        <p>Whoops, something went wrong! Please try reloading this page!</p>
+      )}
+      {loading && <p>Loading...</p>}
+      {movies.length > 0 && <MoviList movies={movies} />}
+    </div>
   );
 };
-
 export default Home;

@@ -1,0 +1,22 @@
+input,
+button {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.searchForm {
+  display: flex;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 6px;
+}

@@ -1,66 +1,42 @@
-// import { useEffect, useState } from "react";
-// import { getMovieDetails } from "../api";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-// const Details = ({ match }) => {
-//   const [movie, setMovie] = useState(null);
-//   const { id } = match.params;
+import { GoBack } from "../../components/GoBack/GoBack";
+import { MyLoader } from "../../components/Loader/Loader";
+import { MovieCard } from "../../components/MovieCard/MovieCard";
 
-//   useEffect(() => {
-//     const fetchMovieDetails = async () => {
-//       try {
-//         const data = await getMovieDetails(id);
-//         setMovie(data);
-//       } catch (error) {
-//         console.error("Помилка при отриманні деталей фільму:", error);
-//       }
-//     };
+import { getMovieById } from "../api";
 
-//     fetchMovieDetails();
-//   }, [id]);
-
-//   if (!movie) {
-//     return <div>Завантаження...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <h1>
-//         {movie.title} ({movie.year})
-//       </h1>
-//       <p>User Score: {movie.userScore}%</p>
-//       <p>Overview: {movie.overview}</p>
-//       <p>Genres: {movie.genres.join(" ")}</p>
-//     </div>
-//   );
-// };
-
-// export default Details;
-
-// ------------
-
-// import { useSearchParams } from "react-router-dom";
-// import { ProductList } from "../components/ProductList";
-// import { SearchBox } from "../components/SearchBox";
-// import { getProducts } from "../api";
-
-// export default function Products() {
-//   const products = getProducts();
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const productName = searchParams.get("name") ?? "";
-
-//   const visibleProducts = products.filter((product) =>
-//     product.name.toLowerCase().includes(productName.toLowerCase())
-//   );
-
-//   const updateQueryString = (name) => {
-//     const nextParams = name !== "" ? { name } : {};
-//     setSearchParams(nextParams);
-//   };
-
-//   return (
-//     <main>
-//       <SearchBox value={productName} onChange={updateQueryString} />
-//       <ProductList products={visibleProducts} />
-//     </main>
-//   );
-// }
+export default function Details() {
+  const { movieId } = useParams();
+  const [loadind, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/movies";
+  console.log(location.state);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const response = await getMovieById(movieId);
+        setMovie(response.data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [movieId]);
+  return (
+    <>
+      <GoBack to={backLinkHref} />
+      {error && (
+        <p>Whoops, something went wrong! Please try reloading this page!</p>
+      )}
+      {loadind && <MyLoader />}
+      {movie && <MovieCard card={movie} />}
+    </>
+  );
+}
