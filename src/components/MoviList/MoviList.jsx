@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-export const MooviList = ({ movies }) => {
+export const MoviList = ({ movies }) => {
   const location = useLocation();
 
   return (

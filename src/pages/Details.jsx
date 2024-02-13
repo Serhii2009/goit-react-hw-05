@@ -1,9 +1,9 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { GoBack } from "../../components/GoBack/GoBack";
-import { MyLoader } from "../../components/Loader/Loader";
-import { MovieCard } from "../../components/MovieCard/MovieCard";
+import { GoBack } from "../components/GoBack/GoBack";
+import { Loader } from "../components/Loader/Loader";
+import { MovieCard } from "../components/MovieCard/MovieCard";
 
 import { getMovieById } from "../api";
 
@@ -35,7 +35,7 @@ export default function Details() {
       {error && (
         <p>Whoops, something went wrong! Please try reloading this page!</p>
       )}
-      {loadind && <MyLoader />}
+      {loadind && <Loader />}
       {movie && <MovieCard card={movie} />}
     </>
   );

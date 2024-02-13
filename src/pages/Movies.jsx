@@ -28,6 +28,7 @@ export const Movies = () => {
       handleSearch(encodeURIComponent(initialQuery));
     }
   }, []);
+
   return (
     <div>
       <SearchBox onSearch={handleSearch} />
