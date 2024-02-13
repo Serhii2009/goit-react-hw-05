@@ -1,15 +1,22 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Movies } from "../pages/Movies";
-import Home from "../pages/Home";
+// import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
-import Details from "../pages/Details";
+// import Details from "../pages/Details";
 
 import { AppHeader } from "../components/AppHeader/AppHeader";
 
-import MovieCast from "../components/MovieCast/MovieCast";
-import MovieReviews from "../components/MovieReviews/MovieReviews";
+// import MovieCast from "../components/MovieCast/MovieCast";
+// import MovieReviews from "../components/MovieReviews/MovieReviews";
+
+const Home = lazy(() => import("../pages/Home"));
+const MovieCast = lazy(() => import("../components/MovieCast/MovieCast"));
+const Details = lazy(() => import("../pages/Details"));
+const MovieReviews = lazy(() =>
+  import("../components/MovieReviews/MovieReviews")
+);
 
 export const App = () => {
   return (
