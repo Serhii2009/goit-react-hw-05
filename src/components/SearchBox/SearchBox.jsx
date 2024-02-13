@@ -1,34 +1,36 @@
-import { HiSearch } from "react-icons/hi";
-import css from "../SearchBox/SearchBox.module.css";
-import { useState } from "react";
+import toast from "react-hot-toast";
+import css from "./SearchBox.module.css";
 
 export const SearchBox = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+  const hendelSubmit = (e) => {
+    e.preventDefault();
+    onSearch(e.target.elements.query.value);
 
-  const handleForm = (ev) => {
-    ev.preventDefault();
-    onSearch(query);
-    setQuery("");
+    if (e.target.elements.query.value.trim() === "") {
+      toast.error("EMPTY STRING");
+      return;
+    }
+    e.target.reset();
   };
 
-  const handleInputChange = (ev) => {
-    setQuery(ev.target.value);
+  const handleScrol = (e) => {
+    console.dir(e);
   };
 
   return (
-    <form onSubmit={handleForm}>
-      <HiSearch className={css.icon} />
-
-      <input
-        className={css.searchForm}
-        name="query"
-        type="text"
-        autoComplete="off"
-        autoFocus
-        value={query}
-        onChange={handleInputChange}
-      />
-      <button type="submit">Search</button>
-    </form>
+    <>
+      <header onScrollCapture={handleScrol}>
+        <form className={css.headerForm} onSubmit={hendelSubmit}>
+          <input
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images"
+            name="query"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </header>
+    </>
   );
 };

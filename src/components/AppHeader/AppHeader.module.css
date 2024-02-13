@@ -27,5 +27,9 @@
 
 .active {
   color: white;
-  background-color: orangered;
+  background-color: #4aac11c2;
+}
+
+.active:hover {
+  background-color: #14c626c2;
 }
